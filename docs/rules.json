@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "id": "R-ID-PEND-LEG",
+      "when": [
+        {"var": "legajo", "op": "!=", "value": null},
+        {"var": "empleado_nombre", "op": "==", "value": null}
+      ],
+      "then": [
+        {"var": "estado_aviso", "op": "set", "value": "pendiente_validacion", "certainty": 0.9},
+        {"var": "notificar_a", "op": "append", "value": "rrhh", "certainty": 1.0}
+      ],
+      "explanation": "Legajo informado sin validación de identidad (empleado no encontrado)."
+    },
+    {"id": "R-DOC-MAP-ENF", "when": [{"var": "motivo", "op": "==", "value": "enfermedad_inculpable"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "certificado_medico", "certainty": 1.0}],
+      "explanation": "Para enfermedad inculpable corresponde certificado médico."},
+    {"id": "R-DOC-MAP-ENF-FAM", "when": [{"var": "motivo", "op": "==", "value": "enfermedad_familiar"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "certificado_medico", "certainty": 1.0}],
+      "explanation": "Para enfermedad familiar corresponde certificado médico."},
+    {"id": "R-DOC-MAP-FALL", "when": [{"var": "motivo", "op": "==", "value": "fallecimiento"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "acta_defuncion", "certainty": 1.0}],
+      "explanation": "Para fallecimiento corresponde acta de defunción."},
+    {"id": "R-DOC-MAP-MATR", "when": [{"var": "motivo", "op": "==", "value": "matrimonio"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "acta_matrimonio", "certainty": 1.0}],
+      "explanation": "Para matrimonio corresponde acta de matrimonio."},
+    {"id": "R-DOC-MAP-NAC", "when": [{"var": "motivo", "op": "==", "value": "nacimiento"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "acta_nacimiento", "certainty": 1.0}],
+      "explanation": "Para nacimiento corresponde acta de nacimiento."},
+    {"id": "R-DOC-MAP-PAT", "when": [{"var": "motivo", "op": "==", "value": "paternidad"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "acta_nacimiento", "certainty": 1.0}],
+      "explanation": "Para paternidad corresponde acta de nacimiento."},
+    {"id": "R-DOC-MAP-PERM", "when": [{"var": "motivo", "op": "==", "value": "permiso_gremial"}],
+      "then": [{"var": "documento_tipo", "op": "set", "value": "nota_gremial", "certainty": 1.0}],
+      "explanation": "Para permiso gremial corresponde nota gremial."},
+
+    {"id": "R-NOTIF-BASE", "when": [{"var": "motivo", "op": "in", "value": [
+      "art", "enfermedad_inculpable", "enfermedad_familiar", "fallecimiento", "matrimonio", "nacimiento", "paternidad", "permiso_gremial"
+    ]}],
+      "then": [{"var": "notificar_a", "op": "append", "value": "rrhh", "certainty": 1.0}],
+      "explanation": "Siempre se notifica a RRHH."},
+    {"id": "R-NOTIF-ML-ENF", "when": [
+      {"var": "motivo", "op": "==", "value": "enfermedad_inculpable"}
+    ], "then": [
+      {"var": "notificar_a", "op": "append", "value": "medico_laboral", "certainty": 1.0}
+    ], "explanation": "Enfermedad inculpable: notificar médico laboral."},
+    {"id": "R-NOTIF-ML-ART", "when": [{"var": "motivo", "op": "==", "value": "art"}],
+      "then": [
+        {"var": "notificar_a", "op": "append", "value": "medico_laboral", "certainty": 1.0}
+      ],
+      "explanation": "ART: notificar médico laboral."},
+    {"id": "R-NOTIF-FALL-SUP", "when": [{"var": "motivo", "op": "==", "value": "fallecimiento"}],
+      "then": [{"var": "notificar_a", "op": "append", "value": "supervisor", "certainty": 1.0}],
+      "explanation": "Fallecimiento: notificar supervisor."},
+    {"id": "R-NOTIF-PERM-DEL", "when": [{"var": "motivo", "op": "==", "value": "permiso_gremial"}],
+      "then": [{"var": "notificar_a", "op": "append", "value": "delegado_gremial", "certainty": 1.0}],
+      "explanation": "Permiso gremial: notificar delegado gremial."},
+
+    {"id": "R-ART-ESTADOS", "when": [{"var": "motivo", "op": "==", "value": "art"}],
+      "then": [
+        {"var": "estado_certificado", "op": "set", "value": "no_requerido", "certainty": 1.0},
+        {"var": "estado_aviso", "op": "set", "value": "incompleto", "certainty": 0.8}
+      ],
+      "explanation": "ART: no se requiere certificado inicial y aviso queda incompleto inicialmente."},
+
+    {"id": "R-PROD-5D-JP", "when": [
+      {"var": "area", "op": "==", "value": "producción"},
+      {"var": "duracion_estimdays", "op": ">=", "value": 3}
+    ], "then": [
+      {"var": "notificar_a", "op": "append", "value": "jefe_produccion", "certainty": 1.0}
+    ], "explanation": "Producción con ausencia mayor a 2 días: notificar jefe de producción."}
+  ]
+}
+
+

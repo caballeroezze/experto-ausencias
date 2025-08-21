@@ -1,0 +1,12 @@
+[project]
+name = "ausencias"
+version = "0.1.0"
+description = "Proyecto base generado por cookiecutter-experto-ausencias"
+requires-python = ">=3.10"
+authors = [
+	{ name = "Ezequiel Caballero" }
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

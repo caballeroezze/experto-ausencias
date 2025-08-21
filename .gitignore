@@ -1,0 +1,24 @@
+# Entorno / dependencias
+.venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Herramientas
+.mypy_cache/
+.pytest_cache/
+.coverage*
+htmlcov/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Bases de datos locales
+*.db
+*.sqlite3
+alembic.ini
+alembic/versions/

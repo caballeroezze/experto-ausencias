@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "variables": {
+    "legajo": {"type": "string"},
+    "empleado_nombre": {"type": "string"},
+    "area": {"type": "string"},
+    "motivo": {"type": "enum", "values": [
+      "art",
+      "enfermedad_inculpable",
+      "enfermedad_familiar",
+      "fallecimiento",
+      "matrimonio",
+      "nacimiento",
+      "paternidad",
+      "permiso_gremial"
+    ]},
+    "fecha_inicio": {"type": "date"},
+    "duracion_estimdays": {"type": "int"},
+    "fecha_fin_estimada": {"type": "date"},
+    "adjunto_certificado": {"type": "string"},
+    "documento_tipo": {"type": "enum", "values": [
+      "certificado_medico",
+      "acta_defuncion",
+      "acta_matrimonio",
+      "acta_nacimiento",
+      "nota_gremial"
+    ]},
+    "documento_legible": {"type": "boolean"},
+    "estado_aviso": {"type": "enum", "values": [
+      "pendiente_validacion",
+      "incompleto",
+      "completo",
+      "rechazado"
+    ]},
+    "estado_certificado": {"type": "enum", "values": [
+      "no_requerido",
+      "pendiente",
+      "recibido",
+      "validado",
+      "pendiente_revision",
+      "rechazado"
+    ]},
+    "fuera_de_termino": {"type": "boolean"},
+    "id_aviso": {"type": "string"},
+    "vinculo_familiar": {"type": "enum", "values": [
+      "padre", "madre", "hijo/a", "cónyuge", "otro"
+    ]},
+    "medico_laboral_interv": {"type": "boolean"},
+    "notificar_a": {"type": "list", "values": [
+      "rrhh", "supervisor", "jefe_produccion", "medico_laboral", "delegado_gremial"
+    ]}
+  }
+}
+
+
